@@ -2,7 +2,11 @@
 
 **alphamorph** is a Python package for non-rigid transformations of point clouds. 
 
-Unlike the traditional usage of **registration** between a source and a target, alphamorph transforms a source point cloud and a target **shape**, in this case a circle.
+Unlike the traditional usage of **registration** between a source and a target, alphamorph transforms a source point cloud into a target **shape**, in this case a circle.
+
+This is done by finding alpha shapes, that will be used as anchors for thin-plate splines. 
+
+In layman terms, it is "making the bed" by 1) finding where are the bed corners and 2) pushing and pulling the sheets!
 
 ## Features
 - **Point Cloud Transformation:** Given a noisy point cloud, apply a non-rigid transformation so it fits a shape
