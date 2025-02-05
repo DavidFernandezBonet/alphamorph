@@ -1,12 +1,11 @@
 # Alphamorph
 
-**alphamorph** is a Python package for non-rigid transformations of point clouds. Unlike the traditional usage of **registration** between a source and a target, alphamorph registers a source point cloud and a target **shape**, in this case a circle.
+**alphamorph** is a Python package for non-rigid transformations of point clouds. 
+
+Unlike the traditional usage of **registration** between a source and a target, alphamorph transforms a source point cloud and a target **shape**, in this case a circle.
 
 ## Features
 - **Point Cloud Transformation:** Given a noisy point cloud, apply a non-rigid transformation so it fits a shape
-- **Distortion:** Introduce controlled noise to simulate distorted boundaries.
-- **Alpha Shapes:** Extract the boundary of a point cloud using alpha shapes.
-- **TPS Transformation:** Compute and apply thin-plate spline transformations to warp a point cloud.
 - **Visualization:** Easily visualize the original, distorted, and transformed point clouds.
 
 ## Installation
@@ -17,13 +16,6 @@ You can install **alphamorph** via pip:
 pip install alphamorph
 ```
 
-Or install from source in editable mode:
-
-````bash
-git clone https://github.com/yourusername/alphamorph.git
-cd alphamorph
-pip install -e .
-````
 
 ## Usage Example
 
