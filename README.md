@@ -16,8 +16,15 @@ You can install **alphamorph** via pip:
 pip install alphamorph
 ```
 
+## Minimal Working Example
+````python
+import numpy as np
+from alphamorph.apply import alphamorph_apply
+points = np.random.rand(1000, 2)
+new_points = alphamorph_apply(points, alpha=2.5)
+````
 
-## Usage Example
+## Full Example
 
 Below is a simple example that demonstrates how to use **alphamorph** to transform a point cloud:
 
@@ -60,6 +67,8 @@ plt.show()
 ## Example Results
 
 <img src="alphamorph_example.png" alt="Alphamorph Example" width="2000">
+
+
 
 
 
