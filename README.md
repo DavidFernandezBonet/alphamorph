@@ -23,6 +23,7 @@ Below is a simple example that demonstrates how to use **alphamorph** to transfo
 
 ````python
 import numpy as np
+import matplotlib.pyplot as plt
 from alphamorph.geometry import generate_point_cloud, distort_point_cloud
 from alphamorph.alpha import compute_alpha_shape
 from alphamorph.apply import alphamorph_apply
@@ -37,12 +38,13 @@ color_list = create_color_list(original_points)
 noisy_points = distort_point_cloud(original_points, noise_scale=0.2, num_bins=15)
 
 
+
 # Compute alpha shapes and apply alphamorph transformation
-alpha = 2.5  
-_, original_hull_points = compute_alpha_shape(original_points, alpha)
-_, reconstructed_hull_points = compute_alpha_shape(noisy_points, alpha)
+alpha = 2.5
+original_hull_indices, original_hull_points = compute_alpha_shape(original_points, alpha)
+reconstructed_hull_indices, reconstructed_hull_points = compute_alpha_shape(noisy_points, alpha)
 new_points = alphamorph_apply(original_points, alpha=alpha)
-new_points_hull_points = new_points  
+new_points_hull_points = new_points[reconstructed_hull_indices]
 
 # Plot
 fig, axes = plt.subplots(1, 3, figsize=(12, 6))
@@ -54,8 +56,10 @@ plt.savefig('alphamorph_example.png')
 plt.show()
 ````
 
+
 ## Example Results
 
-![Alphamorph Example](alphamorph_example.png)
+<img src="alphamorph_example.png" alt="Alphamorph Example" width="2000">
+
 
 
