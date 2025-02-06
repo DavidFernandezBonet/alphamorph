@@ -9,7 +9,11 @@ def compute_alpha_shape(points, alpha):
     Compute the alpha shape of a point cloud and return the boundary points and indices.
     """
     alpha_shape = alphashape.alphashape(points, alpha)
-    boundary_coords = np.array(alpha_shape.exterior.coords)
+    if alpha_shape.geom_type == 'MultiPolygon':  # For especially difficult point clouds
+        alpha_shape = max(alpha_shape.geoms, key=lambda p: p.area)
+        boundary_coords = np.array(alpha_shape.exterior.coords)
+    else:  # Usual point cloud
+        boundary_coords = np.array(alpha_shape.exterior.coords)
     tree = cKDTree(points)
     indices = tree.query(boundary_coords, k=1)[1]
     return indices, points[indices]
