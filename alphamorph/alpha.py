@@ -3,6 +3,8 @@
 import numpy as np
 import alphashape
 from scipy.spatial import cKDTree
+from shapely.geometry import MultiPolygon, Polygon
+
 
 def compute_alpha_shape(points, alpha):
     """
@@ -12,6 +14,12 @@ def compute_alpha_shape(points, alpha):
     if alpha_shape.geom_type == 'MultiPolygon':  # For especially difficult point clouds
         alpha_shape = max(alpha_shape.geoms, key=lambda p: p.area)
         boundary_coords = np.array(alpha_shape.exterior.coords)
+    elif alpha_shape.geom_type == 'GeometryCollection':
+        polygons = [geom for geom in alpha_shape.geoms if isinstance(geom, Polygon)]
+        if not polygons:
+            raise ValueError("No polygons found in the GeometryCollection")
+        chosen_polygon = max(polygons, key=lambda p: p.area)
+        boundary_coords = np.array(chosen_polygon.exterior.coords)
     else:  # Usual point cloud
         boundary_coords = np.array(alpha_shape.exterior.coords)
     tree = cKDTree(points)
