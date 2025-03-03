@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="alphamorph",
-    version="0.2.0",
+    version="0.3",
     author="David Fernandez Bonet",
     author_email="davferdz@gmail.com",
     description="Morph point clouds into circular shapes using alpha shapes and thin-plate splines.",

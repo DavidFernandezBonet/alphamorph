@@ -6,14 +6,18 @@ from alphamorph.geometry import generate_point_cloud, distort_point_cloud, compu
 from alphamorph.alpha import compute_alpha_shape, generate_landmark_correspondences
 from alphamorph.tps import compute_tps_parameters, tps_transform_to_circle
 from alphamorph.plotting import plot_point_cloud, create_color_list
+# from alphamorph.circular_algos import ellipse_to_circle
+from alphamorph.apply import alphamorph_apply
 
 
 def main():
     np.random.seed(42)
     original_points = generate_point_cloud(num_points=2000)
+
     color_list = create_color_list(original_points)
     noisy_points = distort_point_cloud(original_points, noise_scale=0.2, num_bins=15)
     centroid, radius = compute_centroid_and_radius(noisy_points)
+
 
     # TPS optimization.
     alpha = 2.5  # Change alpha as needed.
@@ -27,6 +31,7 @@ def main():
         'weights': weights
     }
     new_points = tps_transform_to_circle(noisy_points, centroid, radius, tps_params)
+    # new_points, _ = ellipse_to_circle(new_points)
     new_points_hull_points = new_points[reconstructed_hull_indices]
 
     # Plotting the results.

@@ -1,7 +1,7 @@
 from alphamorph.geometry import compute_centroid_and_radius
 from alphamorph.alpha import compute_alpha_shape, generate_landmark_correspondences
 from alphamorph.tps import compute_tps_parameters, tps_transform_to_circle
-
+from alphamorph.circular_algos import ellipse_to_circle
 
 def alphamorph_apply(points, alpha=2.5):
     """
@@ -24,4 +24,7 @@ def alphamorph_apply(points, alpha=2.5):
         'weights': weights
     }
     new_points = tps_transform_to_circle(points, centroid, radius, tps_params)
+    # Update: extra step to de-ellipsify
+    new_points, _ = ellipse_to_circle(new_points)
+
     return new_points
